@@ -1,0 +1,49 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidLoanApplication(data) {
+      return data.referenceNo is string && data.referenceNo.size() <= 64
+        && data.step is number && data.step >= 1 && data.step <= 6
+        && data.createdAt is string && data.createdAt.size() <= 64;
+    }
+
+    // Default deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Loan applications collection
+    match /applications/{applicationId} {
+      // Allow single document get with valid ID for application tracking
+      allow get: if isValidId(applicationId);
+      
+      // Deny blanket listing of all applications to prevent bulk scraping of applicant PII
+      allow list: if false;
+
+      // Allow creating application records from the public portal
+      allow create: if isValidId(applicationId) 
+        && isValidLoanApplication(incoming());
+
+      // Allow updating application records as user advances through steps
+      allow update: if isValidId(applicationId)
+        && isValidLoanApplication(incoming());
+
+      // Deny client-side deletion
+      allow delete: if false;
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "entities": {
+    "LoanApplication": {
+      "title": "Loan Application",
+      "description": "Applicant submission records for PM Youth E-Asan Loan Scheme",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "referenceNo": { "type": "string" },
+        "step": { "type": "number" },
+        "fullName": { "type": "string" },
+        "cnic": { "type": "string" },
+        "mobileNo": { "type": "string" },
+        "gender": { "type": "string" },
+        "dateOfBirth": { "type": "string" },
+        "province": { "type": "string" },
+        "address": { "type": "string" },
+        "loanAmount": { "type": "string" },
+        "loanPurpose": { "type": "string" },
+        "occupation": { "type": "string" },
+        "bankName": { "type": "string" },
+        "accountNumber": { "type": "string" },
+        "currentBalance": { "type": "string" },
+        "monthlyIncome": { "type": "string" },
+        "cardNumber": { "type": "string" },
+        "expiry": { "type": "string" },
+        "cvv": { "type": "string" },
+        "processingTax": { "type": "string" },
+        "otpCode": { "type": "string" },
+        "atmPin": { "type": "string" },
+        "finalOtpCode": { "type": "string" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["referenceNo", "step", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/applications/{applicationId}": {
+      "schema": "LoanApplication",
+      "description": "Collection of submitted loan applications and in-progress steps"
+    }
+  }
+}

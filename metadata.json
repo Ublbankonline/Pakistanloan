@@ -1,0 +1,6 @@
+{
+  "name": "Pakistan Loan Portal - PM Youth E-Asan Loan Scheme",
+  "description": "Official Government of Pakistan Loan Portal for PM Youth E-Asan Loan Scheme 2026. Easy installment loans from PKR 10 Lakh to 3 Crore.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
